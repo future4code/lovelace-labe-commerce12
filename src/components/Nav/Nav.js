@@ -5,10 +5,15 @@ const MainNav = styled.div`
   display: flex;
   align-items: center;
   margin: 10px auto;
-  
+
   button {
     padding: 4px;
     border-radius: 5px;
+    cursor: pointer;
+
+    :hover {
+      color: #c44f00;
+    }
   }
 `
 

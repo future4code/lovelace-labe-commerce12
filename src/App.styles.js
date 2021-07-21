@@ -49,6 +49,10 @@ export const CardHeader = styled.div`
   label{
     padding-right: 10px;
   }
+  
+  select {
+    cursor: pointer;
+  }
 `
 
 //FILTRO
