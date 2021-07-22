@@ -14,23 +14,40 @@ class App extends React.Component {
             {
                 id: 1,
                 name: "Foguete da Missão Apollo 11",
-                value: 10000.0,
-                imageUrl: "https://picsum.photos/200/200",
+                value: 10000.00,
+                imageUrl: "https://picsum.photos/id/231/300/300",
             },
             {
-                id: 12,
+                id: 2,
                 name: "Traje Espacial",
-                value: 200.0,
-                imageUrl: "https://picsum.photos/200/200",
+                value: 550.00,
+                imageUrl: "https://picsum.photos/id/335/300/300",
+            },
+            {
+                id: 3,
+                name: "Bateria",
+                value: 123.43,
+                imageUrl: "https://picsum.photos/id/423/300/300",
             },
             {
                 id: 4,
-                name: "Traje Espacial",
-                value: 123.43,
-                imageUrl: "https://picsum.photos/200/200",
+                name: "Tanque de oxigênio",
+                value: 200.00,
+                imageUrl: "https://picsum.photos/id/321/300/300",
+            },
+            {
+                id: 5,
+                name: "Capace",
+                value: 330.00,
+                imageUrl: "https://picsum.photos/id/223/300/300",
             }
+
         ],
-        filtroProdutos: "crescente"
+        filtroProdutos: ""
+    }
+
+    componentDidMount() {
+
     }
 
     onClickHome = () => {
@@ -38,6 +55,38 @@ class App extends React.Component {
     }
 
     onClickCart = () => {
+
+    }
+
+    onChangeFilter = (e) => {
+        const option = e.target.value
+        let listaProdutosFiltrados
+
+        if (option === "crescente") {
+            listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
+                return a.value - b.value
+            })
+
+
+            this.setState({
+                produtos: listaProdutosFiltrados,
+                filtroProdutos: option
+            })
+        } else {
+
+            listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
+                return a.value - b.value
+            }).reverse()
+            
+
+            this.setState({
+                produtos: listaProdutosFiltrados,
+                filtroProdutos: option
+            })
+        }
+    }
+
+    addCarrinho = () => {
 
     }
 
@@ -78,12 +127,21 @@ class App extends React.Component {
     }
 
     render() {
-        const listaProdutosFiltrados = this.state.produtos.filter((produto) => {
-            switch (this.state.filtroProdutos) {
-                case "crescente":
-                    return
-            }
-        })
+        // let listaProdutosFiltrados = this.state.produtos.filter((produto) => {
+        //     switch (this.state.filtroProdutos) {
+        //         case "crescente":
+        //             return listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
+        //                 return a.value - b.value
+        //             })
+        //
+        //         case "decrescente":
+        //             return listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
+        //                 return a.value - b.value
+        //             }).reverse()
+        //     }
+        // })
+
+
 
         return (
             <All.Container>
@@ -113,12 +171,41 @@ class App extends React.Component {
 
                             <div>
                                 <label>Ordenar por:</label>
-                                <select value={this.state.filter} onChange={this.onChangeFilter}>
+                                <select value={this.state.filtroProdutos} onChange={this.onChangeFilter}>
                                     <option value="crescente">Crescente</option>
                                     <option value="decrescente">Decrescente</option>
                                 </select>
                             </div>
                         </All.CardHeader>
+
+                        <All.CardContainer>
+
+                            {/*{listaProdutosFiltrados.map((produto) => {*/}
+                            {/*    return (*/}
+                            {/*        <Card key={produto.id}*/}
+                            {/*              cover={produto.imageUrl}*/}
+                            {/*              productName={produto.name}*/}
+                            {/*              productPrice={produto.value}*/}
+                            {/*              addCarrinho={this.addCarrinho}*/}
+                            {/*        />*/}
+                            {/*    )*/}
+                            {/*})}*/}
+
+                            {this.state.produtos.map((produto) => {
+                                return (
+                                    <Card key={produto.id}
+                                          cover={produto.imageUrl}
+                                          productName={produto.name}
+                                          productPrice={produto.value}
+                                          addCarrinho={this.addCarrinho}
+                                    />
+                                )
+                            })}
+
+
+
+
+                        </All.CardContainer>
                     </All.Center>
 
                     {/*<All.Right>*/}
