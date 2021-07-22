@@ -4,37 +4,27 @@ import React from 'react';
 
 export default class FiltroProdutos extends React.Component {
     state = {
-        valorMinimo: this.props.valorMinimo,
-        valorMaximo: this.props.valorMaximo,
+        valorMinimo: this.props.min,
+        valorMaximo: this.props.max,
         buscarProduto: "",
 
     }
 
-    onChangevalorMinimo = (event) => {
+    onChangeValorMinimo = (event) => {
         this.setState({valorMinimo: event.target.value})
 
-        const listaMenorValorFiltrado = this.props.produtos.filter((produto) => {
-            if (produto.value <= this.state.valorMinimo){
-                return true
-            }
-        })
-        console.log(listaMenorValorFiltrado)
+        this.props.menorValor(event.target.value)
     }
 
-    onChangevalorMaximo = (event) => {
+    onChangeValorMaximo = (event) => {
         this.setState({valorMaximo: event.target.value})
 
-        const listaMaiorValorFiltrado = this.props.produtos.filter((produto) => {
-            if (produto.value >= this.state.valorMaximo){
-                return true
-            }
-        })
-        console.log(listaMaiorValorFiltrado)
+        this.props.maiorValor(event.target.value)
     }
 
-    onChangebuscarProduto = (event) => {
+    onChangeBuscarProduto = (event) => {
         this.setState({buscarProduto: event.target.value})
-
+        this.props.buscarProduto(event.target.value)
     }
 
 
@@ -46,7 +36,7 @@ export default class FiltroProdutos extends React.Component {
                 <h5>Valor Mínimo:</h5>
                 <input value={this.state.valorMinimo}
                        type="number"
-                       onChange={this.onChangevalorMinimo}
+                       onChange={this.onChangeValorMinimo}
                        placeholder="Digite o Valor"
 
                 />
@@ -54,13 +44,13 @@ export default class FiltroProdutos extends React.Component {
                 <h5>Valor Máximo:</h5>
                 <input value={this.state.valorMaximo}
                        type="number"
-                       onChange={this.onChangevalorMaximo}
+                       onChange={this.onChangeValorMaximo}
                        placeholder="Digite o Valor"/>
 
                 <h5>Buscar Produto</h5>
                 <input value={this.state.buscarProduto}
                        type="text"
-                       onChange={this.onChangebuscarProduto}
+                       onChange={this.onChangeBuscarProduto}
                        placeholder="Digite o nome do Produto"/>
 
 

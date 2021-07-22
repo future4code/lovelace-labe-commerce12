@@ -37,13 +37,22 @@ class App extends React.Component {
             },
             {
                 id: 5,
-                name: "Capace",
+                name: "Capacete",
                 value: 330.00,
                 imageUrl: "https://picsum.photos/id/223/300/300",
+            },
+            {
+                id: 6,
+                name: "Roda",
+                value: 30,
+                imageUrl: "https://picsum.photos/id/243/300/300",
             }
 
         ],
-        filtroProdutos: ""
+        ordenaProdutos: "crescente",
+        valorMinimo: 0,
+        valorMaximo: 400,
+        buscarProduto: ""
     }
 
     onClickHome = () => {
@@ -66,7 +75,7 @@ class App extends React.Component {
 
             this.setState({
                 produtos: listaProdutosFiltrados,
-                filtroProdutos: option
+                ordenaProdutos: option
             })
         } else {
 
@@ -77,7 +86,7 @@ class App extends React.Component {
 
             this.setState({
                 produtos: listaProdutosFiltrados,
-                filtroProdutos: option
+                ordenaProdutos: option
             })
         }
     }
@@ -86,52 +95,69 @@ class App extends React.Component {
 
     }
 
+    //Inputs passado do cp filho para o estado do cp pai
     filtroMenorValor = (e) => {
-        const produtosFiltrados = this.state.produtos.filter((produto) => {
-            return produto
+        this.setState({
+            valorMinimo: e
         })
-
-        console.log(e)
     }
 
+    filtroMaiorValor = (e) => {
+        this.setState({
+            valorMaximo: e
+        })
+    }
+
+    filtroBuscar = (e) => {
+        this.setState({
+            buscarProduto: e
+        })
+    }
 
     //METODOS AUXILIARES
-    pegaMenorValor = () => {
-        const minValue = Math.min(...this.state.produtos.map((produto) => {
-            return produto.value
-        }))
-
-        return minValue
-
-        // console.log(minValue)
-        // const menoresValores = this.state.produtos.filter((produto)=>{
-        //     if (produto.value === minValue){
-        //         return produto.value
-        //     }
-        // })
-        //
-        // console.log(menoresValores)
-    }
-
-    pegaMaiorValor = () => {
-        const maxValue = Math.max(...this.state.produtos.map((produto) => {
-            return produto.value
-        }))
-
-        return maxValue
-
-        // console.log(maxValue)
-        //
-        // const maioresValores = this.state.produtos.filter((produto)=>{
-        //     if (produto.value === maxValue){
-        //         return produto.value
-        //     }
-        // })
-        // console.log(maioresValores)
-    }
+    // pegaMenorValor = () => {
+    //     const minValue = Math.min(...this.state.produtos.map((produto) => {
+    //         return produto.value
+    //     }))
+    //
+    //     return minValue
+    //
+    //     // console.log(minValue)
+    //     // const menoresValores = this.state.produtos.filter((produto)=>{
+    //     //     if (produto.value === minValue){
+    //     //         return produto.value
+    //     //     }
+    //     // })
+    //     //
+    //     // console.log(menoresValores)
+    // }
+    //
+    // pegaMaiorValor = () => {
+    //     const maxValue = Math.max(...this.state.produtos.map((produto) => {
+    //         return produto.value
+    //     }))
+    //
+    //     return maxValue
+    //
+    //     // console.log(maxValue)
+    //     //
+    //     // const maioresValores = this.state.produtos.filter((produto)=>{
+    //     //     if (produto.value === maxValue){
+    //     //         return produto.value
+    //     //     }
+    //     // })
+    //     // console.log(maioresValores)
+    // }
 
     render() {
 
+        const listaFiltrada = this.state.produtos.filter((produto) => {
+            return produto.value >= this.state.valorMinimo
+        }).filter((produto) => {
+            return produto.value <= this.state.valorMaximo
+        }).filter((produto) => {
+            return produto.name.includes(this.state.buscarProduto)
+        })
 
         return (
             <All.Container>
@@ -150,11 +176,11 @@ class App extends React.Component {
                     {/*{Left sidebar }*/}
                     <All.Left>
                         <FiltroProdutos
-                            valorMinimo={0}
-                            valorMaximo={this.pegaMaiorValor()}
-                            buscarProduto={this.state.buscarProduto}
-                            menorValor={this.pegaMenorValor()}
-                            produtos={this.state.produtos}
+                            min={this.state.valorMinimo}
+                            max={this.state.valorMaximo}
+                            maiorValor={this.filtroMaiorValor}
+                            menorValor={this.filtroMenorValor}
+                            buscarProduto={this.filtroBuscar}
                         />
                     </All.Left>
 
@@ -167,16 +193,16 @@ class App extends React.Component {
 
                             <div>
                                 <label>Ordenar por:</label>
-                                <select value={this.state.filtroProdutos} onChange={this.onChangeFilter}>
-                                    <option value="decrescente">Decrescente</option>
+                                <select value={this.state.ordenaProdutos} onChange={this.onChangeFilter}>
                                     <option value="crescente">Crescente</option>
+                                    <option value="decrescente">Decrescente</option>
                                 </select>
                             </div>
                         </All.CardHeader>
 
                         <All.CardContainer>
 
-                            {this.state.produtos.map((produto) => {
+                            {listaFiltrada.map((produto) => {
                                 return (
                                     <Card key={produto.id}
                                           cover={produto.imageUrl}
