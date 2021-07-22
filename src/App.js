@@ -46,10 +46,6 @@ class App extends React.Component {
         filtroProdutos: ""
     }
 
-    componentDidMount() {
-
-    }
-
     onClickHome = () => {
 
     }
@@ -63,7 +59,7 @@ class App extends React.Component {
         let listaProdutosFiltrados
 
         if (option === "crescente") {
-            listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
+            listaProdutosFiltrados = this.state.produtos.sort((a, b) => {
                 return a.value - b.value
             })
 
@@ -74,7 +70,7 @@ class App extends React.Component {
             })
         } else {
 
-            listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
+            listaProdutosFiltrados = this.state.produtos.sort((a, b) => {
                 return a.value - b.value
             }).reverse()
 
@@ -88,6 +84,14 @@ class App extends React.Component {
 
     addCarrinho = () => {
 
+    }
+
+    filtroMenorValor = (e) => {
+        const produtosFiltrados = this.state.produtos.filter((produto) => {
+            return produto
+        })
+
+        console.log(e)
     }
 
 
@@ -127,8 +131,6 @@ class App extends React.Component {
     }
 
     render() {
-        
-
 
 
         return (
@@ -147,11 +149,13 @@ class App extends React.Component {
                 <All.Main>
                     {/*{Left sidebar }*/}
                     <All.Left>
-                        <p><FiltroProdutos
-                        valorMinimo = {this.state.valorMinimo}
-                        valorMaximo = {this.state.valorMaximo}
-                        buscarProduto = {this.state.buscarProduto}
-                        /></p>
+                        <FiltroProdutos
+                            valorMinimo={0}
+                            valorMaximo={this.pegaMaiorValor()}
+                            buscarProduto={this.state.buscarProduto}
+                            menorValor={this.pegaMenorValor()}
+                            produtos={this.state.produtos}
+                        />
                     </All.Left>
 
 
@@ -182,8 +186,6 @@ class App extends React.Component {
                                     />
                                 )
                             })}
-
-
 
 
                         </All.CardContainer>
