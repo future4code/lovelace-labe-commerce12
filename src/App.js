@@ -5,11 +5,48 @@ import * as All from "./App.styles"
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer"
-import { ShoppingCart } from './components/Carrinho/
-
 
 class App extends React.Component {
-    state = {}
+    state = {
+        produtos: [
+            {
+                id: 1,
+                name: "Foguete da Missão Apollo 11",
+                value: 10000.00,
+                imageUrl: "https://picsum.photos/id/231/300/300",
+            },
+            {
+                id: 2,
+                name: "Traje Espacial",
+                value: 550.00,
+                imageUrl: "https://picsum.photos/id/335/300/300",
+            },
+            {
+                id: 3,
+                name: "Bateria",
+                value: 123.43,
+                imageUrl: "https://picsum.photos/id/423/300/300",
+            },
+            {
+                id: 4,
+                name: "Tanque de oxigênio",
+                value: 200.00,
+                imageUrl: "https://picsum.photos/id/321/300/300",
+            },
+            {
+                id: 5,
+                name: "Capace",
+                value: 330.00,
+                imageUrl: "https://picsum.photos/id/223/300/300",
+            }
+
+        ],
+        filtroProdutos: ""
+    }
+
+    componentDidMount() {
+
+    }
 
     onClickHome = () => {
 
@@ -19,7 +56,7 @@ class App extends React.Component {
         
     }
 
-        render() {
+
         return (
             <All.Container>
                 <All.Header>
@@ -36,12 +73,46 @@ class App extends React.Component {
                 <All.Main>
                     {/*{Left sidebar }*/}
                     <All.Left>
-                        <p>filtro aqui</p>
+                        <p><FiltroProdutos
+                        valorMinimo = {this.state.valorMinimo}
+                        valorMaximo = {this.state.valorMaximo}
+                        buscarProduto = {this.state.buscarProduto}
+                        /></p>
                     </All.Left>
 
 
                     <All.Center>
-                        <p>Cards produtos aqui</p>
+                        <All.CardHeader>
+                            <div>
+                                <h4>Quantidade de Produtos: {this.state.produtos.length}</h4>
+                            </div>
+
+                            <div>
+                                <label>Ordenar por:</label>
+                                <select value={this.state.filtroProdutos} onChange={this.onChangeFilter}>
+                                    <option value="decrescente">Decrescente</option>
+                                    <option value="crescente">Crescente</option>
+                                </select>
+                            </div>
+                        </All.CardHeader>
+
+                        <All.CardContainer>
+
+                            {this.state.produtos.map((produto) => {
+                                return (
+                                    <Card key={produto.id}
+                                          cover={produto.imageUrl}
+                                          productName={produto.name}
+                                          productPrice={produto.value}
+                                          addCarrinho={this.addCarrinho}
+                                    />
+                                )
+                            })}
+
+
+
+
+                        </All.CardContainer>
                     </All.Center>
 
                     {/*<All.Right>*/}
@@ -51,7 +122,7 @@ class App extends React.Component {
 
                 <All.Footer>
                     <All.Banner>
-                        <Footer />
+                        <Footer/>
                     </All.Banner>
 
                 </All.Footer>

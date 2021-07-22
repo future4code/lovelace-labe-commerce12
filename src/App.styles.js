@@ -30,6 +30,8 @@ export const Main = styled.main`
   margin: 10px 0;
 `
 
+//PRODUTOS
+
 export const Center = styled.article`
   /* Take the remaining width */
   flex-grow: 1;
@@ -38,12 +40,40 @@ export const Center = styled.article`
   margin: auto 10px;
 `
 
+export const CardHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+
+  label{
+    padding-right: 10px;
+  }
+  
+  select {
+    cursor: pointer;
+  }
+`
+
+export const CardContainer = styled.div`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  //height: 100%;
+  //overflow-x: hidden;
+  //overflow-y: scroll;
+`
+
+//FILTRO
+
 export const Left = styled.aside`
   width: 25%;
   border: 1px solid #000;
   padding: 10px;
   margin: auto 10px;
 `
+
+
 
 // export const Right = styled.nav`
 //   width: 20%;
@@ -53,11 +83,13 @@ export const Left = styled.aside`
 // `
 
 
+//FOOTER
+
 export const Footer = styled.footer`
   /* Banner is displayed at the bottom */
-  bottom: 0;
-  left: 0;
-  position: fixed;
+  //bottom: 0;
+  //left: 0;
+  //position: fixed;
   width: 100%;
 
   /* Center the content */
@@ -72,4 +104,5 @@ export const Banner = styled.div`
   background-color: #2C3531;
   padding: 10px;
 `
+
 
