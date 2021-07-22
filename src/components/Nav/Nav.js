@@ -5,10 +5,15 @@ const MainNav = styled.div`
   display: flex;
   align-items: center;
   margin: 10px auto;
-  
+
   button {
     padding: 4px;
     border-radius: 5px;
+    cursor: pointer;
+
+    :hover {
+      color: #c44f00;
+    }
   }
 `
 
@@ -19,9 +24,9 @@ const Separator = styled.div`
 export default function Nav(props) {
     return (
         <MainNav>
-            <button home={props.home}>Home</button>
+            <button onClick={props.home}>Home</button>
             <Separator>/</Separator>
-            <button cart={props.cart}>Carrinho</button>
+            <button onClick={props.cart}>Carrinho</button>
         </MainNav>
     )
 }
