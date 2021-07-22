@@ -5,8 +5,7 @@ import * as All from "./App.styles"
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer"
-
-
+import FiltroProdutos from "./components/Filtro/FiltroProdutos"
 class App extends React.Component {
     state = {}
 
@@ -35,7 +34,11 @@ class App extends React.Component {
                 <All.Main>
                     {/*{Left sidebar }*/}
                     <All.Left>
-                        <p>filtro aqui</p>
+                        <p><FiltroProdutos
+                        valorMinimo = {this.state.valorMinimo}
+                        valorMaximo = {this.state.valorMaximo}
+                        buscarProduto = {this.state.buscarProduto}
+                        /></p>
                     </All.Left>
 
 
