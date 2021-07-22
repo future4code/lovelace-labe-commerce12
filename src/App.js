@@ -77,7 +77,7 @@ class App extends React.Component {
             listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
                 return a.value - b.value
             }).reverse()
-            
+
 
             this.setState({
                 produtos: listaProdutosFiltrados,
@@ -127,19 +127,7 @@ class App extends React.Component {
     }
 
     render() {
-        // let listaProdutosFiltrados = this.state.produtos.filter((produto) => {
-        //     switch (this.state.filtroProdutos) {
-        //         case "crescente":
-        //             return listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
-        //                 return a.value - b.value
-        //             })
-        //
-        //         case "decrescente":
-        //             return listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
-        //                 return a.value - b.value
-        //             }).reverse()
-        //     }
-        // })
+        
 
 
 
@@ -172,24 +160,13 @@ class App extends React.Component {
                             <div>
                                 <label>Ordenar por:</label>
                                 <select value={this.state.filtroProdutos} onChange={this.onChangeFilter}>
-                                    <option value="crescente">Crescente</option>
                                     <option value="decrescente">Decrescente</option>
+                                    <option value="crescente">Crescente</option>
                                 </select>
                             </div>
                         </All.CardHeader>
 
                         <All.CardContainer>
-
-                            {/*{listaProdutosFiltrados.map((produto) => {*/}
-                            {/*    return (*/}
-                            {/*        <Card key={produto.id}*/}
-                            {/*              cover={produto.imageUrl}*/}
-                            {/*              productName={produto.name}*/}
-                            {/*              productPrice={produto.value}*/}
-                            {/*              addCarrinho={this.addCarrinho}*/}
-                            {/*        />*/}
-                            {/*    )*/}
-                            {/*})}*/}
 
                             {this.state.produtos.map((produto) => {
                                 return (
