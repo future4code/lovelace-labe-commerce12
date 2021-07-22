@@ -5,6 +5,7 @@ import * as All from "./App.styles"
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer"
+import { ShoppingCart } from './components/Carrinho/
 
 
 class App extends React.Component {
@@ -15,10 +16,10 @@ class App extends React.Component {
     }
 
     onClickCart = () => {
-
+        
     }
 
-    render() {
+        render() {
         return (
             <All.Container>
                 <All.Header>
@@ -44,7 +45,7 @@ class App extends React.Component {
                     </All.Center>
 
                     {/*<All.Right>*/}
-                    {/*    <p>Carrinho aqui</p>*/}
+                    {<ShoppingCart/>}
                     {/*</All.Right>*/}
                 </All.Main>
 
