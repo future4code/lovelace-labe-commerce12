@@ -34,7 +34,11 @@ class App extends React.Component {
                 <All.Main>
                     {/*{Left sidebar }*/}
                     <All.Left>
-                        <p><FiltroProdutos/></p>
+                        <p><FiltroProdutos
+                        valorMinimo = {this.state.valorMinimo}
+                        valorMaximo = {this.state.valorMaximo}
+                        buscarProduto = {this.state.buscarProduto}
+                        /></p>
                     </All.Left>
 
 
