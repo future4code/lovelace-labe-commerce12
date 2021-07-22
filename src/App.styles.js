@@ -59,9 +59,6 @@ export const CardContainer = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  //height: 100%;
-  //overflow-x: hidden;
-  //overflow-y: scroll;
 `
 
 //FILTRO
@@ -87,9 +84,6 @@ export const Left = styled.aside`
 
 export const Footer = styled.footer`
   /* Banner is displayed at the bottom */
-  //bottom: 0;
-  //left: 0;
-  //position: fixed;
   width: 100%;
 
   /* Center the content */
