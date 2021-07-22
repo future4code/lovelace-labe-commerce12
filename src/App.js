@@ -5,8 +5,6 @@ import * as All from "./App.styles"
 import Header from "./components/Header/Header";
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer"
-import Card from "./components/Card/Card";
-import FiltroProdutos from "./components/Filtro/FiltroProdutos"
 
 class App extends React.Component {
     state = {
@@ -55,80 +53,8 @@ class App extends React.Component {
     }
 
     onClickCart = () => {
-
-    }
-
-    onChangeFilter = (e) => {
-        const option = e.target.value
-        let listaProdutosFiltrados
-
-        if (option === "crescente") {
-            listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
-                return a.value - b.value
-            })
-
-
-            this.setState({
-                produtos: listaProdutosFiltrados,
-                filtroProdutos: option
-            })
-        } else {
-
-            listaProdutosFiltrados = this.state.produtos.sort((a, b)=>{
-                return a.value - b.value
-            }).reverse()
-
-
-            this.setState({
-                produtos: listaProdutosFiltrados,
-                filtroProdutos: option
-            })
-        }
-    }
-
-    addCarrinho = () => {
-
-    }
-
-
-    //METODOS AUXILIARES
-    pegaMenorValor = () => {
-        const minValue = Math.min(...this.state.produtos.map((produto) => {
-            return produto.value
-        }))
-
-        return minValue
-
-        // console.log(minValue)
-        // const menoresValores = this.state.produtos.filter((produto)=>{
-        //     if (produto.value === minValue){
-        //         return produto.value
-        //     }
-        // })
-        //
-        // console.log(menoresValores)
-    }
-
-    pegaMaiorValor = () => {
-        const maxValue = Math.max(...this.state.produtos.map((produto) => {
-            return produto.value
-        }))
-
-        return maxValue
-
-        // console.log(maxValue)
-        //
-        // const maioresValores = this.state.produtos.filter((produto)=>{
-        //     if (produto.value === maxValue){
-        //         return produto.value
-        //     }
-        // })
-        // console.log(maioresValores)
-    }
-
-    render() {
         
-
+    }
 
 
         return (
@@ -190,7 +116,7 @@ class App extends React.Component {
                     </All.Center>
 
                     {/*<All.Right>*/}
-                    {/*    <p>Carrinho aqui</p>*/}
+                    {<ShoppingCart/>}
                     {/*</All.Right>*/}
                 </All.Main>
 
