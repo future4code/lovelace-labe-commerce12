@@ -3,6 +3,10 @@ import * as All from "./Card.styles"
 import {CardContent} from "./Card.styles";
 
 export default class Card extends React.Component {
+    state = {
+        produto: []
+    }
+
 
     render() {
         return (
@@ -20,7 +24,7 @@ export default class Card extends React.Component {
                     </All.CardContent>
 
                     <div>
-                        <button onClick={this.props.addCarrinho}>Adicionar ao Carrinho</button>
+                        <button onClick={() => this.props.addCarrinho(this.props.produtoId)}>Adicionar ao Carrinho</button>
                     </div>
                 </All.Card>
             </All.Container>
