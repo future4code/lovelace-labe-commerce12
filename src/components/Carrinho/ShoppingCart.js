@@ -1,50 +1,29 @@
 import React from 'react'
-import styled from 'styled-components';
+import * as All from "./ShoppingCart.styles"
 
-const ShoppingCartContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 20px;
-  padding: 8px;
-
-  button {
-    padding: 5px;
-    border-radius: 5px;
-  }
-`
-
-const CartListContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-`
 
 export class ShoppingCart extends React.Component {
 
 
     render() {
         return (
-            <ShoppingCartContainer>
-                <h2>Carrinho:</h2>
-
-                <CartListContainer>
-                    {/*{this.props.produto.quantidadeProduto !== 0 ?*/}
-                    {/*    <div>*/}
-                    {/*        <p>{this.props.produto.quantidadeProduto}X</p>*/}
-                    {/*    </div>*/}
-
-                    {/*    <div>*/}
-                    {/*    <p>{this.props.produto.name}</p>*/}
-                    {/*    </div>*/}
-
-                    {/*    <button onClick={this.props.removerDoCarrinho}>Remover</button>*/}
-
-                    {/*    : ""*/}
-                    {/*}*/}
-                </CartListContainer>
+            <All.Container>
 
 
-            </ShoppingCartContainer>
+                <All.CarrinhoContent>
+                    {this.props.produto.quantidadeProduto !== 0 ?
+                        <div>
+                            <p>{this.props.produto.quantidadeProduto}X</p>
+                            <p>{this.props.produto.name}</p>
+                            <button onClick={this.props.removerDoCarrinho}>Remover</button>
+                        </div>
+                        : ""
+                    }
+                </All.CarrinhoContent>
+
+
+
+            </All.Container>
         )
     }
 }
