@@ -72,18 +72,21 @@ export const Left = styled.aside`
 
 
 
-// export const Right = styled.nav`
-//   width: 20%;
-//   border: 1px solid #000;
-//   padding: 10px;
-//   margin: auto 10px;
-// `
+export const Right = styled.nav`
+  width: 20%;
+  border: 1px solid #000;
+  padding: 10px;
+  margin: auto 10px;
+`
 
 
 //FOOTER
 
 export const Footer = styled.footer`
   /* Banner is displayed at the bottom */
+  bottom: 0;
+  left: 0;
+  position: sticky;
   width: 100%;
 
   /* Center the content */

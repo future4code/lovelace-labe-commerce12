@@ -7,6 +7,7 @@ import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer"
 import Card from "./components/Card/Card";
 import FiltroProdutos from "./components/Filtro/FiltroProdutos"
+import {ShoppingCart} from "./components/Carrinho/ShoppingCart";
 
 class App extends React.Component {
     state = {
@@ -16,43 +17,50 @@ class App extends React.Component {
                 name: "Foguete da Missão Apollo 11",
                 value: 10000.00,
                 imageUrl: "https://picsum.photos/id/231/300/300",
+                quantidadeProduto: 1
             },
             {
                 id: 2,
                 name: "Traje Espacial",
                 value: 550.00,
                 imageUrl: "https://picsum.photos/id/335/300/300",
+                quantidadeProduto: 1
             },
             {
                 id: 3,
                 name: "Bateria",
                 value: 123.43,
                 imageUrl: "https://picsum.photos/id/423/300/300",
+                quantidadeProduto: 0
             },
             {
                 id: 4,
                 name: "Tanque de oxigênio",
                 value: 200.00,
                 imageUrl: "https://picsum.photos/id/321/300/300",
+                quantidadeProduto: 1
             },
             {
                 id: 5,
                 name: "Capacete",
                 value: 330.00,
                 imageUrl: "https://picsum.photos/id/223/300/300",
+                quantidadeProduto: 1
             },
             {
                 id: 6,
                 name: "Roda",
                 value: 30,
                 imageUrl: "https://picsum.photos/id/243/300/300",
+                quantidadeProduto: 1
             }
 
         ],
         ordenaProdutos: "crescente",
         valorMinimo: 0,
         valorMaximo: 400,
-        buscarProduto: ""
+        buscarProduto: "",
+        carrinho: []
     }
 
     onClickHome = () => {
@@ -63,7 +71,30 @@ class App extends React.Component {
 
     }
 
-    onChangeFilter = (e) => {
+    //Metodos adicionar e remover produtos do carrinho
+    addCarrinho = (id) => {
+        const produtosAdicao = this.state.produtos.map((produto) => {
+            if (produto.id === id) {
+                const novoProduto = {
+                    ...produto,
+                    quantidadeProduto: produto.quantidadeProduto++
+                }
+
+                return novoProduto
+            } else {
+                return false
+            }
+        })
+
+        this.setState({carrinho: produtosAdicao})
+    }
+
+    removeDoCarrinho = (id) => {
+
+    }
+
+    //Metodos ordena produtos crescente e decrescente
+    ordenaProdutos = (e) => {
         const option = e.target.value
         let listaProdutosFiltrados
 
@@ -89,10 +120,6 @@ class App extends React.Component {
                 ordenaProdutos: option
             })
         }
-    }
-
-    addCarrinho = () => {
-
     }
 
     //Inputs passado do cp filho para o estado do cp pai
@@ -188,12 +215,12 @@ class App extends React.Component {
                     <All.Center>
                         <All.CardHeader>
                             <div>
-                                <h4>Quantidade de Produtos: {this.state.produtos.length}</h4>
+                                <h4>Quantidade de Produtos: {listaFiltrada.length}</h4>
                             </div>
 
                             <div>
                                 <label>Ordenar por:</label>
-                                <select value={this.state.ordenaProdutos} onChange={this.onChangeFilter}>
+                                <select value={this.state.ordenaProdutos} onChange={this.ordenaProdutos}>
                                     <option value="crescente">Crescente</option>
                                     <option value="decrescente">Decrescente</option>
                                 </select>
@@ -205,6 +232,7 @@ class App extends React.Component {
                             {listaFiltrada.map((produto) => {
                                 return (
                                     <Card key={produto.id}
+                                          produtoId={produto.id}
                                           cover={produto.imageUrl}
                                           productName={produto.name}
                                           productPrice={produto.value}
@@ -217,9 +245,19 @@ class App extends React.Component {
                         </All.CardContainer>
                     </All.Center>
 
-                    {/*<All.Right>*/}
-                    {/*    <p>Carrinho aqui</p>*/}
-                    {/*</All.Right>*/}
+                    <All.Right>
+                        {this.state.carrinho.map((produto) => {
+                            return (
+                                <ShoppingCart key={produto.id}
+                                              produto={produto}
+                                              // produtoNome={produto.name}
+                                              // quatidadeProduto={produto.quantidadeProduto}
+                                              removerDoCarrinho={this.removeDoCarrinho}
+                                />
+                            )
+                        })}
+
+                    </All.Right>
                 </All.Main>
 
                 <All.Footer>

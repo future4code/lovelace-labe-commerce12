@@ -7,7 +7,6 @@ export default class FiltroProdutos extends React.Component {
         valorMinimo: this.props.min,
         valorMaximo: this.props.max,
         buscarProduto: "",
-
     }
 
     onChangeValorMinimo = (event) => {
