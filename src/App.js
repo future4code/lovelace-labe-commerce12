@@ -207,7 +207,7 @@ class App extends React.Component {
         }).filter((produto) => {
             return produto.value <= this.state.valorMaximo
         }).filter((produto) => {
-            return produto.name.includes(this.state.buscarProduto)
+            return produto.name.toLowerCase().includes(this.state.buscarProduto)
         })
 
         const rederizaCarrinho = this.state.carrinho.filter((produto) => {
