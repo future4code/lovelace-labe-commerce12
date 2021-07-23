@@ -31,7 +31,7 @@ class App extends React.Component {
                 name: "Bateria",
                 value: 123.43,
                 imageUrl: "https://picsum.photos/id/423/300/300",
-                quantidadeProduto: 0
+                quantidadeProduto: 1
             },
             {
                 id: 4,
@@ -60,7 +60,8 @@ class App extends React.Component {
         valorMinimo: 0,
         valorMaximo: 400,
         buscarProduto: "",
-        carrinho: []
+        carrinho: [],
+        total: 0.00
     }
 
     onClickHome = () => {
@@ -73,20 +74,43 @@ class App extends React.Component {
 
     //Metodos adicionar e remover produtos do carrinho
     addCarrinho = (id) => {
-        const produtosAdicao = this.state.produtos.map((produto) => {
+        let totalCarrinho
+
+        let novoProduto
+
+        let produtosAdicao = this.state.produtos.filter((produto) => {
             if (produto.id === id) {
-                const novoProduto = {
+                novoProduto = {
                     ...produto,
-                    quantidadeProduto: produto.quantidadeProduto++
+                    quantidadeProduto: produto.quantidadeProduto++,
                 }
 
-                return novoProduto
+                this.setState({produtoCarrinho: novoProduto})
+
+                totalCarrinho = this.state.total + produto.value
+
+                return true
             } else {
                 return false
             }
         })
 
-        this.setState({carrinho: produtosAdicao})
+        const novosProdutosCarrinho = [...this.state.carrinho, novoProduto]
+
+        // const produtosFiltrados = novosProdutosCarrinho.filter((produto) => {
+        //     if (produto === novoProduto){
+        //         return false
+        //     } else {
+        //         return true
+        //     }
+        // })
+        // //
+        // console.log(novosProdutosCarrinho)
+
+        this.setState({
+            carrinho: novosProdutosCarrinho,
+            total: totalCarrinho
+        })
     }
 
     removeDoCarrinho = (id) => {
@@ -186,6 +210,12 @@ class App extends React.Component {
             return produto.name.includes(this.state.buscarProduto)
         })
 
+        const rederizaCarrinho = this.state.carrinho.filter((produto) => {
+            return produto.quantidadeProduto > 0
+        })
+
+        // console.log(rederizaCarrinho)
+
         return (
             <All.Container>
                 <All.Header>
@@ -246,16 +276,22 @@ class App extends React.Component {
                     </All.Center>
 
                     <All.Right>
-                        {this.state.carrinho.map((produto) => {
+                        <All.CarrinhoHeader>
+                            <h2>Carrinho:</h2>
+                        </All.CarrinhoHeader>
+
+                        {rederizaCarrinho.map((produto, index) => {
                             return (
-                                <ShoppingCart key={produto.id}
+                                <ShoppingCart key={index}
                                               produto={produto}
-                                              // produtoNome={produto.name}
-                                              // quatidadeProduto={produto.quantidadeProduto}
                                               removerDoCarrinho={this.removeDoCarrinho}
                                 />
                             )
                         })}
+
+                        <All.CarrinhoFooter>
+                            <p>Valor Total: {this.state.total}</p>
+                        </All.CarrinhoFooter>
 
                     </All.Right>
                 </All.Main>

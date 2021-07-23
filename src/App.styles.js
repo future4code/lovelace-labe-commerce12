@@ -71,12 +71,26 @@ export const Left = styled.aside`
 `
 
 
-
+//CARRINHO
 export const Right = styled.nav`
   width: 20%;
   border: 1px solid #000;
   padding: 10px;
   margin: auto 10px;
+`
+
+export const CarrinhoHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 20px;
+`
+
+export const CarrinhoFooter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 20px;
 `
 
 
