@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,9 +26,12 @@ export const Main = styled.main`
   flex-grow: 1;
 
   /* Layout the left sidebar, main content and right sidebar */
-  display: flex;
-  flex-direction: row;
+  //display: flex;
+  //flex-direction: row;
+  display: grid;
+  grid-template-columns: 400px 1fr;
   margin: 10px 0;
+  gap: 10px;
 `
 
 //PRODUTOS
@@ -38,6 +42,7 @@ export const Center = styled.article`
   border: 1px solid #000;
   padding: 10px;
   margin: auto 10px;
+ 
 `
 
 export const CardHeader = styled.div`
@@ -64,19 +69,33 @@ export const CardContainer = styled.div`
 //FILTRO
 
 export const Left = styled.aside`
-  width: 25%;
+  width: 100%;
+  height: 100%;
   border: 1px solid #000;
   padding: 10px;
   margin: auto 10px;
+  
+ 
+`
+
+export const FiltroHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 20px;
+  margin-top: 10px;
 `
 
 
 //CARRINHO
-export const Right = styled.nav`
-  width: 20%;
-  border: 1px solid #000;
+export const CarrinhoContainer = styled.div`
+  width: 100%;
   padding: 10px;
-  margin: auto 10px;
+  margin: 10px auto;
+  
+  div{
+    margin: 20px;
+  }
 `
 
 export const CarrinhoHeader = styled.div`
@@ -98,9 +117,22 @@ export const CarrinhoFooter = styled.div`
 
 export const Footer = styled.footer`
   /* Banner is displayed at the bottom */
+  //bottom: 0;
+  //left: 0;
+  //position: absolute;
+  width: 100%;
+
+  /* Center the content */
+  align-items: center;
+  display: flex;
+  justify-content: center;
+`
+
+export const FooterCart = styled.footer`
+  /* Banner is displayed at the bottom */
   bottom: 0;
   left: 0;
-  position: sticky;
+  position: fixed;
   width: 100%;
 
   /* Center the content */
