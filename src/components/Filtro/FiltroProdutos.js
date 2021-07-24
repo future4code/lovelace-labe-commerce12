@@ -1,6 +1,5 @@
-import {render} from '@testing-library/react';
 import React from 'react';
-
+import * as All from "./FiltroProdutos.styles"
 
 export default class FiltroProdutos extends React.Component {
     state = {
@@ -29,32 +28,30 @@ export default class FiltroProdutos extends React.Component {
 
     render() {
         return (
-            <div>
-                <h2>Filtro</h2>
-                <br/>
-                <h5>Valor Mínimo:</h5>
-                <input value={this.state.valorMinimo}
-                       type="number"
-                       onChange={this.onChangeValorMinimo}
-                       placeholder="Digite o Valor"
+            <All.Container>
+                <All.Inputs>
+                    <h5>Valor Mínimo:</h5>
+                    <input value={this.state.valorMinimo}
+                           type="number"
+                           onChange={this.onChangeValorMinimo}
+                           placeholder="Digite o Valor"
 
-                />
+                    />
 
-                <h5>Valor Máximo:</h5>
-                <input value={this.state.valorMaximo}
-                       type="number"
-                       onChange={this.onChangeValorMaximo}
-                       placeholder="Digite o Valor"/>
+                    <h5>Valor Máximo:</h5>
+                    <input value={this.state.valorMaximo}
+                           type="number"
+                           onChange={this.onChangeValorMaximo}
+                           placeholder="Digite o Valor"/>
 
-                <h5>Buscar Produto</h5>
-                <input value={this.state.buscarProduto}
-                       type="text"
-                       onChange={this.onChangeBuscarProduto}
-                       placeholder="Digite o nome do Produto"/>
+                    <h5>Buscar Produto:</h5>
+                    <input value={this.state.buscarProduto}
+                           type="text"
+                           onChange={this.onChangeBuscarProduto}
+                           placeholder="Digite o nome do Produto"/>
 
-
-            </div>
-
+                </All.Inputs>
+            </All.Container>
         )
     }
 

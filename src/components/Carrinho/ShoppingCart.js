@@ -1,6 +1,7 @@
 import React from 'react'
 import * as All from "./ShoppingCart.styles"
 
+import ShoppingCartItem from "./ShoppingCartItem";
 
 export class ShoppingCart extends React.Component {
 
@@ -11,16 +12,13 @@ export class ShoppingCart extends React.Component {
 
 
                 <All.CarrinhoContent>
-                    {this.props.produto.quantidadeProduto !== 0 ?
-                        <div>
-                            <p>{this.props.produto.quantidadeProduto}X</p>
-                            <p>{this.props.produto.name}</p>
-                            <button onClick={this.props.removerDoCarrinho}>Remover</button>
-                        </div>
-                        : ""
-                    }
-                </All.CarrinhoContent>
 
+                    <ShoppingCartItem
+                        produtoCart={this.props.produto}
+                        removerDoCarrinho={this.props.removerDoCarrinho}
+                    />
+
+                </All.CarrinhoContent>
 
 
             </All.Container>

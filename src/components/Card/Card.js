@@ -1,11 +1,7 @@
 import React from "react";
 import * as All from "./Card.styles"
-import {CardContent} from "./Card.styles";
 
 export default class Card extends React.Component {
-    state = {
-        produto: []
-    }
 
 
     render() {
@@ -19,7 +15,7 @@ export default class Card extends React.Component {
                     <All.CardContent>
                             <h3>{this.props.productName}</h3>
 
-                            <p>R$ {this.props.productPrice}</p>
+                            <p>R$ {this.props.productPrice.toLocaleString('pt-BR')}</p>
 
                     </All.CardContent>
 

@@ -8,6 +8,7 @@ import Footer from "./components/Footer/Footer"
 import Card from "./components/Card/Card";
 import FiltroProdutos from "./components/Filtro/FiltroProdutos"
 import {ShoppingCart} from "./components/Carrinho/ShoppingCart";
+import {FiltroHeader} from "./App.styles";
 
 class App extends React.Component {
     state = {
@@ -17,42 +18,42 @@ class App extends React.Component {
                 name: "Foguete da Missão Apollo 11",
                 value: 10000.00,
                 imageUrl: "https://picsum.photos/id/231/300/300",
-                quantidadeProduto: 1
+                quantidadeProduto: 0
             },
             {
                 id: 2,
                 name: "Traje Espacial",
                 value: 550.00,
                 imageUrl: "https://picsum.photos/id/335/300/300",
-                quantidadeProduto: 1
+                quantidadeProduto: 0
             },
             {
                 id: 3,
                 name: "Bateria",
                 value: 123.43,
                 imageUrl: "https://picsum.photos/id/423/300/300",
-                quantidadeProduto: 1
+                quantidadeProduto: 0
             },
             {
                 id: 4,
                 name: "Tanque de oxigênio",
                 value: 200.00,
                 imageUrl: "https://picsum.photos/id/321/300/300",
-                quantidadeProduto: 1
+                quantidadeProduto: 0
             },
             {
                 id: 5,
                 name: "Capacete",
-                value: 330.00,
+                value: 330.49,
                 imageUrl: "https://picsum.photos/id/223/300/300",
-                quantidadeProduto: 1
+                quantidadeProduto: 0
             },
             {
                 id: 6,
                 name: "Roda",
-                value: 30,
+                value: 30.29,
                 imageUrl: "https://picsum.photos/id/243/300/300",
-                quantidadeProduto: 1
+                quantidadeProduto: 0
             }
 
         ],
@@ -61,60 +62,77 @@ class App extends React.Component {
         valorMaximo: 400,
         buscarProduto: "",
         carrinho: [],
-        total: 0.00
+        total: 0.00,
+        clickHome: true,
+        clickCart: false
     }
 
     onClickHome = () => {
-
+        this.setState({
+            clickHome: true,
+            clickCart: false
+        })
     }
 
     onClickCart = () => {
-
+        this.setState({
+            clickHome: false,
+            clickCart: true
+        })
     }
 
     //Metodos adicionar e remover produtos do carrinho
     addCarrinho = (id) => {
+        const productInCart = this.state.carrinho.find((product) => {
+            return product.id === id
+        })
+
         let totalCarrinho
 
-        let novoProduto
-
-        let produtosAdicao = this.state.produtos.filter((produto) => {
-            if (produto.id === id) {
-                novoProduto = {
-                    ...produto,
-                    quantidadeProduto: produto.quantidadeProduto++,
+        if (productInCart) {
+            let newProduct = this.state.carrinho.map((produto) => {
+                if (produto.id === id) {
+                    return {
+                        ...produto,
+                        quantidadeProduto: produto.quantidadeProduto + 1,
+                    }
                 }
+                return produto
+            })
+            this.setState({
+                carrinho: newProduct
+            })
+        } else {
+            const addProduct = this.state.produtos.find((produto) => {
+                return produto.id === id
+            })
 
-                this.setState({produtoCarrinho: novoProduto})
+            const newCart = [
+                ...this.state.carrinho,
+                {
+                    ...addProduct,
+                    quantidadeProduto: addProduct.quantidadeProduto + 1
+                }
+            ]
 
-                totalCarrinho = this.state.total + produto.value
-
-                return true
-            } else {
-                return false
-            }
-        })
-
-        const novosProdutosCarrinho = [...this.state.carrinho, novoProduto]
-
-        // const produtosFiltrados = novosProdutosCarrinho.filter((produto) => {
-        //     if (produto === novoProduto){
-        //         return false
-        //     } else {
-        //         return true
-        //     }
-        // })
-        // //
-        // console.log(novosProdutosCarrinho)
-
-        this.setState({
-            carrinho: novosProdutosCarrinho,
-            total: totalCarrinho
-        })
+            this.setState({
+                carrinho: newCart
+            })
+        }
     }
 
     removeDoCarrinho = (id) => {
 
+    }
+
+    getTotalValue = () => {
+        let totalValue = 0
+
+        for (let product of this.state.carrinho) {
+            totalValue += product.value + product.quantidadeProduto
+        }
+
+        return totalValue.toLocaleString('pt-BR')
     }
 
     //Metodos ordena produtos crescente e decrescente
@@ -126,7 +144,6 @@ class App extends React.Component {
             listaProdutosFiltrados = this.state.produtos.sort((a, b) => {
                 return a.value - b.value
             })
-
 
             this.setState({
                 produtos: listaProdutosFiltrados,
@@ -165,40 +182,6 @@ class App extends React.Component {
         })
     }
 
-    //METODOS AUXILIARES
-    // pegaMenorValor = () => {
-    //     const minValue = Math.min(...this.state.produtos.map((produto) => {
-    //         return produto.value
-    //     }))
-    //
-    //     return minValue
-    //
-    //     // console.log(minValue)
-    //     // const menoresValores = this.state.produtos.filter((produto)=>{
-    //     //     if (produto.value === minValue){
-    //     //         return produto.value
-    //     //     }
-    //     // })
-    //     //
-    //     // console.log(menoresValores)
-    // }
-    //
-    // pegaMaiorValor = () => {
-    //     const maxValue = Math.max(...this.state.produtos.map((produto) => {
-    //         return produto.value
-    //     }))
-    //
-    //     return maxValue
-    //
-    //     // console.log(maxValue)
-    //     //
-    //     // const maioresValores = this.state.produtos.filter((produto)=>{
-    //     //     if (produto.value === maxValue){
-    //     //         return produto.value
-    //     //     }
-    //     // })
-    //     // console.log(maioresValores)
-    // }
 
     render() {
 
@@ -207,7 +190,7 @@ class App extends React.Component {
         }).filter((produto) => {
             return produto.value <= this.state.valorMaximo
         }).filter((produto) => {
-            return produto.name.includes(this.state.buscarProduto)
+            return produto.name.toLowerCase().includes(this.state.buscarProduto)
         })
 
         const rederizaCarrinho = this.state.carrinho.filter((produto) => {
@@ -228,84 +211,108 @@ class App extends React.Component {
                         cart={this.onClickCart}
                     />
                 </All.Nav>
+                {this.state.clickHome === true
+                    ? (
+                        <All.Main>
+                            {/*{Left sidebar }*/}
+                            <All.Left>
+                                <All.FiltroHeader>
+                                    <h2>Filtro:</h2>
+                                </All.FiltroHeader>
 
-                <All.Main>
-                    {/*{Left sidebar }*/}
-                    <All.Left>
-                        <FiltroProdutos
-                            min={this.state.valorMinimo}
-                            max={this.state.valorMaximo}
-                            maiorValor={this.filtroMaiorValor}
-                            menorValor={this.filtroMenorValor}
-                            buscarProduto={this.filtroBuscar}
-                        />
-                    </All.Left>
-
-
-                    <All.Center>
-                        <All.CardHeader>
-                            <div>
-                                <h4>Quantidade de Produtos: {listaFiltrada.length}</h4>
-                            </div>
-
-                            <div>
-                                <label>Ordenar por:</label>
-                                <select value={this.state.ordenaProdutos} onChange={this.ordenaProdutos}>
-                                    <option value="crescente">Crescente</option>
-                                    <option value="decrescente">Decrescente</option>
-                                </select>
-                            </div>
-                        </All.CardHeader>
-
-                        <All.CardContainer>
-
-                            {listaFiltrada.map((produto) => {
-                                return (
-                                    <Card key={produto.id}
-                                          produtoId={produto.id}
-                                          cover={produto.imageUrl}
-                                          productName={produto.name}
-                                          productPrice={produto.value}
-                                          addCarrinho={this.addCarrinho}
-                                    />
-                                )
-                            })}
-
-
-                        </All.CardContainer>
-                    </All.Center>
-
-                    <All.Right>
-                        <All.CarrinhoHeader>
-                            <h2>Carrinho:</h2>
-                        </All.CarrinhoHeader>
-
-                        {rederizaCarrinho.map((produto, index) => {
-                            return (
-                                <ShoppingCart key={index}
-                                              produto={produto}
-                                              removerDoCarrinho={this.removeDoCarrinho}
+                                <FiltroProdutos
+                                    min={this.state.valorMinimo}
+                                    max={this.state.valorMaximo}
+                                    maiorValor={this.filtroMaiorValor}
+                                    menorValor={this.filtroMenorValor}
+                                    buscarProduto={this.filtroBuscar}
                                 />
-                            )
-                        })}
+                            </All.Left>
 
-                        <All.CarrinhoFooter>
-                            <p>Valor Total: {this.state.total}</p>
-                        </All.CarrinhoFooter>
 
-                    </All.Right>
-                </All.Main>
+                            <All.Center>
+                                <All.CardHeader>
+                                    <div>
+                                        <h4>Quantidade de Produtos: {listaFiltrada.length}</h4>
+                                    </div>
 
-                <All.Footer>
-                    <All.Banner>
-                        <Footer/>
-                    </All.Banner>
+                                    <div>
+                                        <label>Ordenar por:</label>
+                                        <select value={this.state.ordenaProdutos} onChange={this.ordenaProdutos}>
+                                            <option value="crescente">Crescente</option>
+                                            <option value="decrescente">Decrescente</option>
+                                        </select>
+                                    </div>
+                                </All.CardHeader>
 
-                </All.Footer>
+                                <All.CardContainer>
 
+                                    {listaFiltrada.map((produto) => {
+                                        return (
+                                            <Card key={produto.id}
+                                                  produtoId={produto.id}
+                                                  cover={produto.imageUrl}
+                                                  productName={produto.name}
+                                                  productPrice={produto.value}
+                                                  addCarrinho={this.addCarrinho}
+                                            />
+                                        )
+                                    })}
+
+
+                                </All.CardContainer>
+                            </All.Center>
+
+
+                        </All.Main>
+                    )
+                    : (
+                        <All.CarrinhoContainer>
+                            <All.CarrinhoHeader>
+                                <h2>Carrinho:</h2>
+                            </All.CarrinhoHeader>
+
+                            {this.state.carrinho.length === 0
+                                ?( <div>Carrinho Vazio.</div>)
+                                : (rederizaCarrinho.map((produto, index) => {
+                                    return (
+                                        <ShoppingCart key={index}
+                                                      produto={produto}
+                                                      removerDoCarrinho={this.removeDoCarrinho}
+                                        />
+                                    )
+                                }))}
+
+                            <All.CarrinhoFooter>
+                                <p>Valor Total: {this.getTotalValue()}</p>
+                            </All.CarrinhoFooter>
+
+                        </All.CarrinhoContainer>
+                    )
+                }
+
+                {this.state.clickCart === true
+                    ? (
+                        <All.FooterCart>
+                            <All.Banner>
+                                <Footer/>
+                            </All.Banner>
+
+                        </All.FooterCart>
+                    )
+                    : (
+                        <All.Footer>
+                            <All.Banner>
+                                <Footer/>
+                            </All.Banner>
+
+                        </All.Footer>
+                    )
+                }
             </All.Container>
         )
     }
+
 }
 
 export default App;
