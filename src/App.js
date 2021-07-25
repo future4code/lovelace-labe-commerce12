@@ -66,6 +66,26 @@ class App extends React.Component {
         clickCart: false
     }
 
+    //LocalStorage
+    componentDidMount() {
+        let prevCart = JSON.parse(localStorage.getItem("carrinho"))
+
+        if (prevCart === null) {
+            prevCart = []
+        }
+
+        this.setState({
+            carrinho: prevCart
+        })
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevState.carrinho !== this.state.carrinho) {
+            localStorage.setItem("carrinho", JSON.stringify(this.state.carrinho))
+        }
+    }
+
+    //Troca de tela
     onClickHome = () => {
         this.setState({
             clickHome: true,
@@ -135,11 +155,15 @@ class App extends React.Component {
     getTotalValue = () => {
         let totalValue = 0
 
-        for (let product of this.state.carrinho) {
-            totalValue += product.value + product.quantidadeProduto
-        }
+        if (this.state.carrinho === null) {
+            return totalValue
+        } else {
+            for (let product of this.state.carrinho) {
+                totalValue += product.value + product.quantidadeProduto
+            }
 
-        return totalValue.toLocaleString('pt-BR')
+            return totalValue.toLocaleString('pt-BR')
+        }
     }
 
     //Metodos ordena produtos crescente e decrescente
@@ -245,18 +269,26 @@ class App extends React.Component {
                                 </All.CardHeader>
 
                                 <All.CardContainer>
-
-                                    {listaFiltrada.map((produto) => {
-                                        return (
-                                            <Card key={produto.id}
-                                                  produtoId={produto.id}
-                                                  cover={produto.imageUrl}
-                                                  productName={produto.name}
-                                                  productPrice={produto.value}
-                                                  addCarrinho={this.addCarrinho}
-                                            />
+                                    {listaFiltrada.length === 0
+                                        ? (
+                                            <All.CardEmpty>
+                                                <h3>Produto Não Encontrado!</h3>
+                                            </All.CardEmpty>
                                         )
-                                    })}
+                                        : (
+                                            listaFiltrada.map((produto) => {
+                                                return (
+                                                    <Card key={produto.id}
+                                                          produtoId={produto.id}
+                                                          cover={produto.imageUrl}
+                                                          productName={produto.name}
+                                                          productPrice={produto.value}
+                                                          addCarrinho={this.addCarrinho}
+                                                    />
+                                                )
+                                            })
+                                        )
+                                    }
 
 
                                 </All.CardContainer>
@@ -282,7 +314,6 @@ class App extends React.Component {
                                     )
                                 }))}
 
-
                             <All.CarrinhoFooter>
                                 <p>Valor Total: {this.getTotalValue()}</p>
                             </All.CarrinhoFooter>
@@ -297,7 +328,7 @@ class App extends React.Component {
                     </All.Banner>
 
                 </All.Footer>
-             
+
             </All.Container>
         )
     }

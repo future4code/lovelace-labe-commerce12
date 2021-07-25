@@ -26,12 +26,11 @@ export const Main = styled.main`
   flex-grow: 1;
 
   /* Layout the left sidebar, main content and right sidebar */
-  //display: flex;
-  //flex-direction: row;
   display: grid;
   grid-template-columns: 400px 1fr;
   margin: 10px 0;
   gap: 10px;
+  padding-bottom: 100px;
 `
 
 //PRODUTOS
@@ -42,7 +41,7 @@ export const Center = styled.article`
   border: 1px solid #000;
   padding: 10px;
   margin: auto 10px;
- 
+  height: 100%;
 `
 
 export const CardHeader = styled.div`
@@ -64,6 +63,16 @@ export const CardContainer = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+`
+
+export const CardEmpty = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding-bottom: 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  text-align: center;
 `
 
 //FILTRO
