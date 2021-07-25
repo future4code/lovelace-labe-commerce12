@@ -70,7 +70,6 @@ export const CardEmpty = styled.div`
   flex-direction: column;
   margin: 20px;
   padding-bottom: 20px;
-  border: 1px solid #000;
   border-radius: 5px;
   text-align: center;
 `
