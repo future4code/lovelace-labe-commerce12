@@ -197,7 +197,7 @@ class App extends React.Component {
         }).filter((produto) => {
             return produto.name.toLowerCase().includes(this.state.buscarProduto)
         }).sort((a, b) => this.state.ordenaProdutos === 'crescente' ? a.value - b.value : b.value - a.value)
-        
+
         return (
             <All.Container>
                 <All.Header>
@@ -291,24 +291,13 @@ class App extends React.Component {
                     )
                 }
 
-                {this.state.clickCart === true
-                    ? (
-                        <All.FooterCart>
-                            <All.Banner>
-                                <Footer/>
-                            </All.Banner>
+                <All.Footer>
+                    <All.Banner>
+                        <Footer/>
+                    </All.Banner>
 
-                        </All.FooterCart>
-                    )
-                    : (
-                        <All.Footer>
-                            <All.Banner>
-                                <Footer/>
-                            </All.Banner>
-
-                        </All.Footer>
-                    )
-                }
+                </All.Footer>
+             
             </All.Container>
         )
     }

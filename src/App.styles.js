@@ -74,8 +74,6 @@ export const Left = styled.aside`
   border: 1px solid #000;
   padding: 10px;
   margin: auto 10px;
-  
- 
 `
 
 export const FiltroHeader = styled.div`
@@ -110,6 +108,11 @@ export const CarrinhoFooter = styled.div`
   align-items: center;
   justify-content: flex-start;
   margin: 20px;
+  
+  p{
+    font-weight: 700;
+    font-size: 20px;
+  }
 `
 
 
@@ -117,22 +120,9 @@ export const CarrinhoFooter = styled.div`
 
 export const Footer = styled.footer`
   /* Banner is displayed at the bottom */
-  //bottom: 0;
-  //left: 0;
-  //position: absolute;
-  width: 100%;
-
-  /* Center the content */
-  align-items: center;
-  display: flex;
-  justify-content: center;
-`
-
-export const FooterCart = styled.footer`
-  /* Banner is displayed at the bottom */
   bottom: 0;
   left: 0;
-  position: fixed;
+  position: static;
   width: 100%;
 
   /* Center the content */
