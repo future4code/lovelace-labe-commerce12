@@ -1,4 +1,5 @@
 # LabEcommerce
+![labecommerce](https://user-images.githubusercontent.com/31461569/126886304-1ca415eb-fd6a-4b96-bea9-d3d59513d2c1.PNG)
 
 ## Sobre
 
@@ -14,8 +15,5 @@ No LabEcommerce você encontrará os melhores produtos para sua viagem espacial.
 - [Guilherme Henrique](https://github.com/Guilherme-Jesus) (Developer)
 - [Labenu](https://www.labenu.com.br/) (Turma Lovalace)
 
-## Imagens
-
-![labecommerce](https://user-images.githubusercontent.com/31461569/126886304-1ca415eb-fd6a-4b96-bea9-d3d59513d2c1.PNG)
 
 
