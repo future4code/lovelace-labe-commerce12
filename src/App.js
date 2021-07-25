@@ -8,7 +8,6 @@ import Footer from "./components/Footer/Footer"
 import Card from "./components/Card/Card";
 import FiltroProdutos from "./components/Filtro/FiltroProdutos"
 import {ShoppingCart} from "./components/Carrinho/ShoppingCart";
-import {FiltroHeader} from "./App.styles";
 
 class App extends React.Component {
     state = {
@@ -57,7 +56,7 @@ class App extends React.Component {
             }
 
         ],
-        ordenaProdutos: "crescente",
+        ordenaProdutos: "decrescente",
         valorMinimo: 0,
         valorMaximo: 400,
         buscarProduto: "",
@@ -86,8 +85,6 @@ class App extends React.Component {
         const productInCart = this.state.carrinho.find((product) => {
             return product.id === id
         })
-
-        let totalCarrinho
 
         if (productInCart) {
             let newProduct = this.state.carrinho.map((produto) => {
@@ -122,7 +119,17 @@ class App extends React.Component {
     }
 
     removeDoCarrinho = (id) => {
+        const productCart = this.state.carrinho.map((produto) => {
+            if (produto.id === id) {
+                return {
+                    ...produto,
+                    quantidadeProduto: produto.quantidadeProduto - 1
+                }
+            }
+            return produto
+        }).filter((produto) => produto.quantidadeProduto > 0)
 
+        this.setState({carrinho: productCart})
     }
 
     getTotalValue = () => {
@@ -150,11 +157,9 @@ class App extends React.Component {
                 ordenaProdutos: option
             })
         } else {
-
             listaProdutosFiltrados = this.state.produtos.sort((a, b) => {
                 return a.value - b.value
             }).reverse()
-
 
             this.setState({
                 produtos: listaProdutosFiltrados,
@@ -191,14 +196,8 @@ class App extends React.Component {
             return produto.value <= this.state.valorMaximo
         }).filter((produto) => {
             return produto.name.toLowerCase().includes(this.state.buscarProduto)
-        })
-
-        const rederizaCarrinho = this.state.carrinho.filter((produto) => {
-            return produto.quantidadeProduto > 0
-        })
-
-        // console.log(rederizaCarrinho)
-
+        }).sort((a, b) => this.state.ordenaProdutos === 'crescente' ? a.value - b.value : b.value - a.value)
+        
         return (
             <All.Container>
                 <All.Header>
@@ -239,8 +238,8 @@ class App extends React.Component {
                                     <div>
                                         <label>Ordenar por:</label>
                                         <select value={this.state.ordenaProdutos} onChange={this.ordenaProdutos}>
-                                            <option value="crescente">Crescente</option>
                                             <option value="decrescente">Decrescente</option>
+                                            <option value="crescente">Crescente</option>
                                         </select>
                                     </div>
                                 </All.CardHeader>
@@ -273,8 +272,8 @@ class App extends React.Component {
                             </All.CarrinhoHeader>
 
                             {this.state.carrinho.length === 0
-                                ?( <div>Carrinho Vazio.</div>)
-                                : (rederizaCarrinho.map((produto, index) => {
+                                ? (<div>Carrinho Vazio.</div>)
+                                : (this.state.carrinho.map((produto, index) => {
                                     return (
                                         <ShoppingCart key={index}
                                                       produto={produto}
@@ -282,6 +281,7 @@ class App extends React.Component {
                                         />
                                     )
                                 }))}
+
 
                             <All.CarrinhoFooter>
                                 <p>Valor Total: {this.getTotalValue()}</p>
