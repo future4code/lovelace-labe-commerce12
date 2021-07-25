@@ -8,10 +8,7 @@ export const Container = styled.div`
   padding: 8px;
   border: 1px solid #000;
 
-  button {
-    padding: 5px;
-    border-radius: 5px;
-  }
+  
 `
 
 
@@ -19,14 +16,6 @@ export const CarrinhoContent = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  
-  div{
-    display: flex;
-    justify-content: space-between;
-    
-    img {
-      width: 20%;
-    }
-  }
+ 
 `
 
